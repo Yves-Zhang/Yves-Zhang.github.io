@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Spaassy使用教程 | YvesZhang&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">YvesZhang&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">YvesZhang&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Spaassy使用教程</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yves Zhang</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">九月 7, 2019&nbsp;&nbsp;23:36:49</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/WEB前端/">WEB前端</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="Spaassy教程"><a href="#Spaassy教程" class="headerlink" title="Spaassy教程"></a>Spaassy教程</h2><h3 id="安装spaassy脚手架spaassy-cli"><a href="#安装spaassy脚手架spaassy-cli" class="headerlink" title="安装spaassy脚手架spaassy-cli"></a>安装spaassy脚手架spaassy-cli</h3><p>首先安装node，并且版本&gt;8.6</p>
+<p>全局安装spaassy脚手架spaassy-cli</p>
+<p>运行node命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i spaassy-cli -g</span><br></pre></td></tr></table></figure>
+
+<p>初始化spaassy项目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spaassy init -p newProject</span><br></pre></td></tr></table></figure>
+
+<p>init是初始化spaassy项目的命令，-p是项目名称的设置，newProject就是你项目的名称，你也可以直接执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spaassy init</span><br></pre></td></tr></table></figure>
+
+<p>没有项目名称，脚手架会默认设置新项目的名称为spaassy。</p>
+<p>然后一路按照指示生成项目，或是直接回车使用默认设置就可以了。</p>
+<p>spaassy框架内置了react+react-router+axios+spaassy-redux，spaassy-redux基于react-redux库并改写了内部的一些函数，在使用spaassy之前你需要参考一下spaassy相关文档。并且spaassy-redux是spaassy实现微前端的核心库。</p>
+<h3 id="spaassy框架使用教程"><a href="#spaassy框架使用教程" class="headerlink" title="spaassy框架使用教程"></a>spaassy框架使用教程</h3><h4 id="项目的目录"><a href="#项目的目录" class="headerlink" title="项目的目录"></a>项目的目录</h4><p>首先我们来看看整个spaassy应用的项目目录：</p>
+<center>
+<img src="/image/tableOfcontent.jpg" width="50%" height="50%">
+文件目录
+</center>
+
+<h4 id="spaassy作为单纯的SPA应用"><a href="#spaassy作为单纯的SPA应用" class="headerlink" title="spaassy作为单纯的SPA应用"></a>spaassy作为单纯的SPA应用</h4><p>如果你目前只是想做一个简单单一应用，Spaassy集成了react、redux、react-redux、axios、antd… 并且在配置上尽可能的做到丰富与封装。尽可能的让适用者专注于业务逻辑的开发，而不是把精力放在环境和各种依赖库的整合上面。</p>
+<p>只是spaassy内置了spaassy-redux，这是spaassy中较为核心的地方，在使用redux的时候会与react-redux有一点点不一样。</p>
+<p>在通过脚手架生成项目之后，我们进入项目目录当中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd newProject</span><br></pre></td></tr></table></figure>
+
+<p>然后安装依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>src文件夹就是管理我们项目的业务逻辑的文件，和其它项目不同的是，spaassy生成的工程多了三个配置文件：</p>
+<ul>
+<li>_spaassyConfig.js；</li>
+</ul>
+<p>这个文件是用来配置本地开发的文件，包括本地服务端口号、proxy代理、文件alias，还有webpackDll公用依赖打包的配置。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    server: &#123;</span><br><span class="line">        host: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        port: <span class="number">9001</span>,</span><br><span class="line">        proxy: [&#123;</span><br><span class="line">            path: <span class="string">'/api'</span>,</span><br><span class="line">            option: &#123;</span><br><span class="line">                target: <span class="string">'http://127.0.0.1:8989'</span>,</span><br><span class="line">                pathRewrite: &#123;</span><br><span class="line">                    <span class="string">'^/api'</span>: <span class="string">"/"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                changeOrigin: <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;,</span><br><span class="line">    webpack: &#123;</span><br><span class="line">        env_variable: &#123;</span><br><span class="line">            <span class="string">'process.env.PROJECTTYPE'</span>: <span class="built_in">JSON</span>.stringify(<span class="string">'SPAASSY'</span>), <span class="comment">// 系统级别，独立作为spa应用设置为“SPA”, 作为spaassy应用设置为“SPAASSY”</span></span><br><span class="line">            <span class="string">'process.env.SYSTEMNAME'</span>: <span class="built_in">JSON</span>.stringify(<span class="string">'main'</span>) <span class="comment">// 系统名称，会被作为系统的命名空间, 自定义命名</span></span><br><span class="line">        &#125;,</span><br><span class="line">        alias: &#123;</span><br><span class="line">            <span class="string">'@'</span>: path.resolve(__dirname, <span class="string">'src'</span>),</span><br><span class="line">            <span class="string">'@assets'</span>: path.resolve(__dirname, <span class="string">'src/assets'</span>),</span><br><span class="line">            <span class="string">'@http'</span>: path.resolve(__dirname, <span class="string">'src/httpServer'</span>),</span><br><span class="line">            <span class="string">'@views'</span>: path.resolve(__dirname, <span class="string">'src/views'</span>),</span><br><span class="line">            <span class="string">'@common'</span>: path.resolve(__dirname, <span class="string">'src/common'</span>),</span><br><span class="line">            <span class="string">'@store'</span>: path.resolve(__dirname, <span class="string">'src/store'</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 将第三方依赖单独打包并作为外部依赖，请保持主系统与系统的vendor配置一致</span></span><br><span class="line">        dll: &#123;</span><br><span class="line">            entry: &#123;</span><br><span class="line">                vendor_dll: [</span><br><span class="line">                    <span class="string">'react'</span>,</span><br><span class="line">                    <span class="string">'redux'</span>,</span><br><span class="line">                    <span class="string">'react-redux'</span>,</span><br><span class="line">                    <span class="string">'axios'</span>,</span><br><span class="line">                    <span class="string">'react-router'</span>,</span><br><span class="line">                    <span class="string">'react-router-dom'</span></span><br><span class="line">                ],</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>_spaassyProtalConfig；</li>
+</ul>
+<p>portalConfig是将当前项目作为一个门户系统打包，需要配置的，它的内部是长这个样子的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> portal = &#123;</span><br><span class="line">    protalTarget: <span class="string">'./dist/index.html'</span>,</span><br><span class="line">    subProject: [&#123;</span><br><span class="line">        projectName: <span class="string">'mainSub'</span>,</span><br><span class="line">        host: <span class="string">'./'</span>,</span><br><span class="line">        target: <span class="string">'./distSub/index.html'</span>,</span><br><span class="line">        resourcePattern: [<span class="string">'mainSub/main.css'</span>, <span class="string">'mainSub/bundle.js'</span>]</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = portal</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>_spaassySubConfig；</li>
+</ul>
+<p>_spaassySubConfig是将当前项目作为一个微前端子系统打包，需要配置的，它的内部是长这个样子的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    SpaAssyRegister</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'spaassy-redux'</span></span><br><span class="line"><span class="keyword">import</span> reducers <span class="keyword">from</span> <span class="string">'@store'</span></span><br><span class="line"><span class="keyword">import</span> routers <span class="keyword">from</span> <span class="string">'@/views/home/routers'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> namespace = process.env.SYSTEMNAME + <span class="string">'Sub'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> option = &#123;</span><br><span class="line">    namespace: namespace,</span><br><span class="line">    routers: [...routers],</span><br><span class="line">    reducers: &#123;</span><br><span class="line">        ...reducers</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> spaassyRegister = <span class="keyword">new</span> SpaAssyRegister(option)</span><br><span class="line"></span><br><span class="line">spaassyRegister.addRouters()</span><br><span class="line">spaassyRegister.registerReducer()</span><br></pre></td></tr></table></figure>
+
+<p>当然，如果你只是将spaassy工程为一个独立的SPA项目来使用，_spaassyProtalConfig与_spaassySubConfig这个两个配置文件你完全不用理会和使用。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yves Zhang</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Yves-Zhang.github.io/2019/09/07/Spaassy使用教程/">http://Yves-Zhang.github.io/2019/09/07/Spaassy使用教程/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Spaassy/"># Spaassy</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/09/06/Spaassy-cli框架说明/">Spaassy-cli微前端框架</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yves Zhang | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
