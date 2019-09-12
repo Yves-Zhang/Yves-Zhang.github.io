@@ -7,7 +7,7 @@
 
 
 
-<title>Hexo Start | YvesZhang&#39;s blog</title>
+<title>Spaassy微前端框架 | YvesZhang&#39;s blog</title>
 
 
 
@@ -169,7 +169,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hexo Start</h1>
+            <h1 class="post-title">Spaassy微前端框架</h1>
             
                 <div class="post-meta">
                     
@@ -178,14 +178,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">九月 3, 2019&nbsp;&nbsp;12:00:28</a>
+                        Date: <a href="#">九月 6, 2019&nbsp;&nbsp;23:38:48</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/笔记/">笔记</a>
+                                <a href="/categories/WEB前端/">WEB前端</a>
                             
                         </span>
                     
@@ -194,19 +194,23 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <h2 id="Spaassy是什么？"><a href="#Spaassy是什么？" class="headerlink" title="Spaassy是什么？"></a>Spaassy是什么？</h2><p>Spaassy是一套基于react SPA应用的微前端脚手架。</p>
+<h3 id="Spaassy的适用场景"><a href="#Spaassy的适用场景" class="headerlink" title="Spaassy的适用场景"></a>Spaassy的适用场景</h3><p>Spaassy与其它的react SPA应用脚手架并没有本质上的区别，如果你目前只是想做一个简单单一应用，你仍然可以用它，Spaassy集成了react、redux、react-redux、axios、antd… 并且在配置上尽可能的做到丰富与封装。尽可能的让适用者专注于业务逻辑的开发，而不是把精力放在环境和各种依赖库的整合上面。</p>
+<p>如上所说，Spaassy可以作为一个简单单页面应用react全家桶脚手架，但Spaassy存在的目的是为了从项目一开始，就让你的应用具有微前端架构整合能力的的脚手架而存在的。你可以说你的项目当前只需要做一个简单的SPA就好，可是你怎么知道随着业务逐步扩大，你的项目不会庞大到要做拆分，或是被整合到一个更大的平台系统中呢？使用Spaassy可以让你的项目具备拆分和整合的能力。</p>
+<h3 id="实现微前端应用要解决的问题"><a href="#实现微前端应用要解决的问题" class="headerlink" title="实现微前端应用要解决的问题"></a>实现微前端应用要解决的问题</h3><p>随着微服务架构的盛行，前端作为多个微服务的前端门户，通常要对应多个后台。随着后台服务越来越多，前端工程变得越来越重，单一的SPA应用难以支撑。</p>
+<p>在一个一体化平台系统中，多个子项目需要聚合成统一平台性的应用，单个SPA应用相互隔离，无法统一聚合。而以前iframe内嵌的方式只是各个应用窗口的集合，无法真正做到多系统的整合。</p>
+<h3 id="Spaassy与其它微前端框架的区别"><a href="#Spaassy与其它微前端框架的区别" class="headerlink" title="Spaassy与其它微前端框架的区别"></a>Spaassy与其它微前端框架的区别</h3><p>目前微前端实现技术大致分为两大类。</p>
+<p>一类是以Single-SPA为代表的，将单个SPA应用作为整体嵌入Single-SPA框架中，通过Single-SPA路由在子系统外部包裹一层，判断路由是在当前系统内部跳转还是子系统之间跳转。内部跳转就维持当前系统生命周期，系统之间跳转就结束当前系统生命周期，进入下一个系统生命周期之中。</p>
+<p>Single-SPA的优点在于兼容性好，技术改造相对简单，可以同时维持不同的技术栈在同一个应用当中，宽容度强，适合子系统之间关联度不强（几乎没有关联度）的应用。但是Single-SPA的不足在于，各个子系统本质上依然是隔离的。相对于内嵌iframe，Single-SPA减少了http资源请求的时间，各个子真正聚合成一个系统。</p>
+<p>但是Single-SPA的缺点在于，各个系统的生命周期是独立存在的。子系统之间只是做到了路由之间的相互跳转，模块之间交互、资源与数据共享依然是问题。</p>
+<p>一类是使用同一技术栈，通过路由懒加载的方式，将各个子系统的路由注入到一个统一的portal系统当中。既可以分开发同一部署，又可以分开开发分开部署，再通过portal系统请求各个子系统的资源，开放统一的门户。</p>
+<p>相对于Single-SPA，这种路由懒加载微前端的方式，各个子系统聚合的粒度更加细微，子系统想要整合到同一的portal系统的模块变得可拆分，而不是一整个子系统。子系统之间高度聚合，数据与资源共享变得可行。</p>
+<p>但是路由懒加载的方式实现微前端架构，技术难度会更加高，高度统一的规范、统一的技术栈、统一的组件库是实现这个微前端架构先决条件。同时子系统之间的数据与资源既要共享又需要空间隔离，需要一套良好的管理规范和机制。</p>
+<p>Spaassy就是一套基于react + react-router + redux + react-redux全家桶的微前端框架。</p>
+<p>传送门：<a href="https://www.npmjs.com/package/spaassy-cli" target="_blank" rel="noopener">https://www.npmjs.com/package/spaassy-cli</a></p>
+<iframe style="margin-left: 2px; margin-bottom:-5px; " frameborder="0" scrolling="0" width="100px" height="20px" src="https://ghbtns.com/github-btn.html?user=spaassy&repo=cli&type=star&count=true">
+</iframe>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
         </div>
 
@@ -221,7 +225,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://Yves-Zhang.github.io/2019/09/03/Hexo Start/">http://Yves-Zhang.github.io/2019/09/03/Hexo Start/</a></span>
+                        <span><a href="http://Yves-Zhang.github.io/2019/09/06/Spaassy框架说明/">http://Yves-Zhang.github.io/2019/09/06/Spaassy框架说明/</a></span>
                     </p>
                 
                 
@@ -245,7 +249,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/hexo/"># hexo</a>
+                        <a href="/tags/Spaassy/"># Spaassy</a>
                     
                         
                 </span>
@@ -258,10 +262,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2019/09/06/Spaassy框架说明/">Spaassy微前端框架</a>
+                <a class="prev" rel="prev" href="/2019/09/07/Spaassy-cli使用教程/">Spaassy-cli使用教程</a>
             
             
-            <a class="next" rel="next" href="/2019/09/03/Mac笔记本npm的权限问题/">Mac笔记本npm的权限问题</a>
+            <a class="next" rel="next" href="/2019/09/03/Hexo Start/">Hexo Start</a>
             
         </section>
 
