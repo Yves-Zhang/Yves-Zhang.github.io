@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>WEB安全性问题 | YvesZhang&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">YvesZhang&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">YvesZhang&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">WEB安全性问题</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Yves Zhang</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">一月 4, 2020&nbsp;&nbsp;23:21:50</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/WEB前端/">WEB前端</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>几种常见的 web 安全问题：</p>
+<ul>
+<li>同源策略</li>
+<li>XSS</li>
+<li>CSRF</li>
+<li>SQL注入</li>
+<li>点击劫持</li>
+<li>window.opener 安全问题</li>
+<li>文件上传漏洞</li>
+</ul>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>如果两个页面的协议，端口（如果有指定）和域名都相同，则两个页面具有相同的源。</p>
+<h3 id="同源策略是什么"><a href="#同源策略是什么" class="headerlink" title="同源策略是什么"></a>同源策略是什么</h3><p>同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源。所以xyz.com下的js脚本采用ajax读取abc.com里面的文件数据是会被拒绝的。</p>
+<p>同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。</p>
+<h3 id="不受同源策略限制的"><a href="#不受同源策略限制的" class="headerlink" title="不受同源策略限制的"></a>不受同源策略限制的</h3><ol>
+<li><p>页面中的链接，重定向以及表单提交是不会受到同源策略限制的。</p>
+</li>
+<li><p>跨域资源的引入是可以的。但是js不能读写加载的内容。如嵌入到页面中的</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;...&quot;&gt;&lt;/script&gt;，&lt;img&gt;，&lt;link&gt;，&lt;iframe&gt;等。</span><br></pre></td></tr></table></figure></code></pre></li>
+</ol>
+<h3 id="解决同源策略的一般方法"><a href="#解决同源策略的一般方法" class="headerlink" title="解决同源策略的一般方法"></a>解决同源策略的一般方法</h3><ul>
+<li>jsonp 古老的方法，现在基本上不常用</li>
+<li>window.name  适用于子父级iframe，不同域的场景</li>
+<li>postmessage  适用于子父级iframe，不同域的场景</li>
+<li>反向代理，nginx  常用方案</li>
+<li>设置domain，适用于 子父级iframe共享token场景</li>
+</ul>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>跨站脚本攻击：cross-site scripting。本质：客户端代码注入漏洞，通常注入代码是js脚本。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>HTML是一种超文本标记语言，通过将一些字符特殊地对待来区别文本和标记，例如，小于符号（&lt;）被看作是HTML标签的开始，<title>与</title>之间的字符是页面的标题等等。当动态页面中插入的内容含有这些特殊字符（如&lt;）时，用户浏览器会将其误认为是插入了HTML标签，当这些HTML标签引入了一段JavaScript脚本时，这些脚本程序就将会在用户浏览器中执行。所以，当这些特殊字符不能被动态页面检查或检查出现失误时，就将会产生XSS漏洞。</p>
+<h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><p>存储型XSS  </p>
+<ul>
+<li>经过后端，经过数据库</li>
+</ul>
+<p>反射性xss  </p>
+<ul>
+<li>经过后端，不经过数据库</li>
+</ul>
+<p>DOM型xss  </p>
+<ul>
+<li>不经过后端, DOM—based XSS漏洞是基于文档对象模型(Document Objeet Model, DOM)的一种漏洞, dom - xss是通过url传入参数去控制触发的</li>
+</ul>
+<h3 id="预防策略"><a href="#预防策略" class="headerlink" title="预防策略"></a>预防策略</h3><ul>
+<li>将cookie等敏感信息设置为httponly，禁止Javascript通过document.cookie获得</li>
+<li>对所有的输入做严格的校验尤其是在服务器端，过滤掉任何不合法的输入，比如手机号必须是数字，通常可以采用正则表达式.</li>
+<li>净化和过滤掉不必要的html标签，比如： <code></code>  <code>&lt;iframe&gt;, alt, &lt;script&gt;</code>  <code></code> ; 净化和过滤掉不必要的Javascript的事件标签，比如：onclick, onfocus等</li>
+<li>转义单引号，双引号，尖括号等特殊字符，可以采用htmlencode编码 或者过滤掉这些特殊字符</li>
+<li>CSP, CSP 全称为 Content Security Policy，即内容安全策略。主要以白名单的形式配置可信任的内容来源，在网页中，能够使白名单中的内容正常执行（包含 JS，CSS，Image 等等），而非白名单的内容无法正常执行，从而减少跨站脚本攻击（XSS），当然，也能够减少运营商劫持的内容注入攻击。</li>
+</ul>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>CSRF跨站点请求伪造(Cross—Site Request Forgery)，跟XSS攻击一样，存在巨大的危害性，你可以这样来理解：</p>
+<p>攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等。 </p>
+<h3 id="原理及过程"><a href="#原理及过程" class="headerlink" title="原理及过程"></a>原理及过程</h3><p>其中Web A为存在CSRF漏洞的网站，Web B为攻击者构建的恶意网站，User C为Web A网站的合法用户。</p>
+<p>CSRF攻击攻击原理及过程如下：</p>
+<ol>
+<li><p>用户C打开浏览器，访问受信任网站A，输入用户名和密码请求登录网站A；</p>
+</li>
+<li><p>在用户信息通过验证后，网站A产生Cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</p>
+</li>
+<li><p>用户未退出网站A之前，在同一浏览器中，打开一个TAB页访问网站B；</p>
+</li>
+<li><p>网站B接收到用户请求后，返回一些攻击性代码，并发出一个请求要求访问第三方站点A；</p>
+</li>
+<li><p>浏览器在接收到这些攻击性代码后，根据网站B的请求，在用户不知情的情况下携带Cookie信息，向网站A发出请求。网站A并不知道该请求其实是由B发起的，所以会根据用户C的Cookie信息以C的权限处理该请求，导致来自网站B的恶意代码被执行。 </p>
+</li>
+</ol>
+<h3 id="CSRF漏洞检测"><a href="#CSRF漏洞检测" class="headerlink" title="CSRF漏洞检测"></a>CSRF漏洞检测</h3><p>检测CSRF漏洞是一项比较繁琐的工作，</p>
+<ul>
+<li><p>最简单的方法就是抓取一个正常请求的数据包，去掉Referer字段后再重新提交，如果该提交还有效，那么基本上可以确定存在CSRF漏洞。</p>
+</li>
+<li><p>专门针对CSRF漏洞进行检测的工具，如CSRFTester，CSRF Request Builder; 使用CSRFTester进行测试时，首先需要抓取我们在浏览器中访问过的所有链接以及所有的表单等信息，然后通过在CSRFTester中修改相应的表单等信息，重新提交，这相当于一次伪造客户端请求。如果修改后的测试请求成功被网站服务器接受，则说明存在CSRF漏洞，当然此款工具也可以被用来进行CSRF攻击</p>
+</li>
+</ul>
+<h3 id="防御CSRF攻击"><a href="#防御CSRF攻击" class="headerlink" title="防御CSRF攻击"></a>防御CSRF攻击</h3><p>目前防御 CSRF 攻击主要有三种策略：</p>
+<ul>
+<li>验证 HTTP Referer 字段；</li>
+<li>在请求地址中添加 token 并验证；</li>
+<li>在 HTTP 头中自定义属性并验证。</li>
+</ul>
+<h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><p>网页链接存在参数传递，后台并没有对用户的输入进行过滤，导致用户的输入直接被SQL解释器执行。</p>
+<h3 id="SQL注入的产生条件"><a href="#SQL注入的产生条件" class="headerlink" title="SQL注入的产生条件"></a>SQL注入的产生条件</h3><ul>
+<li><p>有参数传递</p>
+</li>
+<li><p>参数值带入数据库查询并执行</p>
+</li>
+</ul>
+<h3 id="SQL注入过程"><a href="#SQL注入过程" class="headerlink" title="SQL注入过程"></a>SQL注入过程</h3><ol>
+<li><p>漏洞判断</p>
+<ul>
+<li><p>判断网页链接的格式是否符合我们一开始提出的SQL注入产生的条件。</p>
+</li>
+<li><p>使用常见的 and 1=1 或者 单引号’ 来判断用户的输入是否被SQL解释器执行。</p>
+<p>比如：1’ and 1=1 #，同样的，我们带入到网页的源码中，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$getid = &quot;SELECT first_name, last_name FROM users WHERE user_id = &apos;1&apos; and 1=1 #&apos;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>and 1=1 是一个逻辑判断语句，也就是说，因为 1=1，所以前面的SQL语句查询，可以执行。<br>那么如果换成 and 1=2，很明显，逻辑判断不成立，所以前面的SQL语句无法查询，网页返回错误信息。</p>
+</li>
+</ul>
+</li>
+<li><p>查询数据库名称</p>
+<ul>
+<li><p>联合查询法</p>
+</li>
+<li><p>逐字猜解法</p>
+</li>
+</ul>
+</li>
+<li><p>查询数据库表名</p>
+<p> 输入</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1’ union select 1,group_concat(table_name) from information_schema.tables where table_schema=database() #</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>group_concat() 是一个函数，将同一个id的其他字段合并起来。 table_name，顾名思义，就是表名的意思。</li>
+<li>information_schema.tables 是MySQL提供的自带的数据库，主要是提供用户自行建立的一些表的信息。其中保存着关于MySQL服务器所维护的所有其他数据库的- 信息。如数据库名，数据库的表，表栏的数据类型与访问权限等。</li>
+<li>table_schema=database() 是指数据库名称为database()。</li>
+</ul>
+</li>
+<li><p>获取字段名</p>
+<p> 输入</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1’ union select 1,group_concat(column_name) from information_schema.columns where table_name=’users’ #</span><br></pre></td></tr></table></figure>
+
+<p> 查询成功后，可以看到users表中的字段</p>
+</li>
+<li><p>获取数据库详细内容</p>
+<p> 输入</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1’ or 1=1 union select group_concat(user_id,first_name,last_name),group_concat(password) from users #</span><br></pre></td></tr></table></figure>
+
+<p> 最终，我们得到数据库的详细内容。</p>
+</li>
+</ol>
+<h3 id="防御SQL注入"><a href="#防御SQL注入" class="headerlink" title="防御SQL注入"></a>防御SQL注入</h3><p>归根到底，需要对用户的输入进行过滤，因为在Web攻防中，我们永远不要相信用户的输入。</p>
+<ol>
+<li><p>使用预编译语句，绑定变量。</p>
+</li>
+<li><p>使用安全的存储过程对抗SQL注入。</p>
+</li>
+<li><p>检查数据类型。</p>
+</li>
+<li><p>使用安全函数。</p>
+</li>
+</ol>
+<h2 id="点击劫持"><a href="#点击劫持" class="headerlink" title="点击劫持"></a>点击劫持</h2><p>点击劫持，clickjacking，也被称为UI-覆盖攻击。<br>这个词首次出现在2008年，是由互联网安全专家罗伯特·汉森和耶利米·格劳斯曼首创的。</p>
+<h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>它是通过覆盖不可见的框架误导受害者点击。</li>
+<li>虽然受害者点击的是他所看到的网页，但其实他所点击的是被黑客精心构建的另一个置于原网页上面的透明页面。</li>
+</ul>
+<h3 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h3><ol>
+<li><p>Javascript中禁止内嵌</p>
+<p> 因为普通页面的top对象为window，而iframe的top对象不等于window对象，可以在JS代码中：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (top.location !== window.location)&#123;</span><br><span class="line">    top.location == window.location</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 这样如果存在嵌套的iframe，页面就会进行跳转，避免的点击劫持。<br> 但是这种防御方式并不完善，如果攻击者设置ifame的属性sandbox=”allow-forms” 时防御就失效。</p>
+</li>
+<li><p>X-FRAME-OPTIONS 防止内嵌<br> 服务器端可设置HTTP头 “X-Frame-Options：DENY”来让浏览器主动禁止iframe内嵌<br> 不过这种方式在HTTP中不可靠，黑客可以窃听篡改HTTP请求来修改HTTP头。</p>
+</li>
+<li><p>对于Firefox的用户，使用 NoScript 扩展<br> NoScript 能够在一定程度上检测和阻止点击劫持攻击。</p>
+</li>
+<li><p>其他辅助手段<br> 如XSS和CSRF的防御方法，也可以防御点击劫持后对服务器端的攻击</p>
+</li>
+</ol>
+<h2 id="window-opener-安全问题"><a href="#window-opener-安全问题" class="headerlink" title="window.opener 安全问题"></a>window.opener 安全问题</h2><p>window.opener 表示打开当前窗体页面的的父窗体的是谁。例如，在 A 页面中，通过一个带有 target=”_blank” 的 a 标签打开了一个新的页面 B，那么在 B 页面里，window.opener 的值为 A 页面的 window 对象。</p>
+<p>一般来说，打开同源(域名相同)的页面，不会有什么问题。但对于跨域的外部链接来说，存在一个被钓鱼的风险。比如你正在浏览购物网站，从当前网页打开了某个外部链接，在打开的外部页面，可以通过 window.opener.location 改写来源站点的地址。利用这一点，将来源站点改写到钓鱼站点页面上，例如跳转到伪造的高仿购物页面，当再回到购物页面的时候，是很难发现购物网站的地址已经被修改了的，这个时候你的账号就存在被钓鱼的可能了。</p>
+<h3 id="预防策略-1"><a href="#预防策略-1" class="headerlink" title="预防策略"></a>预防策略</h3><ol>
+<li><p>设置 rel 属性</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;https://xxxx&quot; rel=&quot;noopener noreferrer&quot;&gt; 外链 &lt;a&gt;</span><br></pre></td></tr></table></figure>
+
+<p> rel=noopener 规定禁止新页面传递源页面的地址，通过设置了此属性的链接打开的页面，其 window.opener 的值为 null。</p>
+</li>
+<li><p>将外链替换为内部的跳转连接服务，跳转时先跳到内部地址，再由服务器 redirect 到外链。</p>
+</li>
+<li><p>可以由 widow.open 打开外链。</p>
+</li>
+</ol>
+<h2 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h2><p>服务器未校验上传的文件，致使黑客可以上传恶意脚本等方式。</p>
+<h3 id="预防策略-2"><a href="#预防策略-2" class="headerlink" title="预防策略"></a>预防策略</h3><ul>
+<li>用文件头来检测文件类型，使用白名单过滤(有些文件可以从其中一部分执行，只检查文件头无效，例如 PHP 等脚本语言)；</li>
+<li>上传后将文件彻底重命名并移动到不可执行的目录下；</li>
+<li>升级服务器软件以避免路径解析漏洞；</li>
+<li>升级用到的开源编辑器；</li>
+<li>管理后台设置强密码。</li>
+</ul>
+<h2 id="DDos-攻击"><a href="#DDos-攻击" class="headerlink" title="DDos 攻击"></a>DDos 攻击</h2><p>DDOS：分布式拒绝服务攻击（Distributed Denial of Service），简单说就是发送大量请求是使服务器瘫痪。DDos攻击是在DOS攻击基础上的，可以通俗理解，dos是单挑，而ddos是群殴，因为现代技术的发展，dos攻击的杀伤力降低，所以出现了DDOS，攻击者借助公共网络，将大数量的计算机设备联合起来，向一个或多个目标进行攻击。</p>
+<h3 id="DDOS-攻击类型"><a href="#DDOS-攻击类型" class="headerlink" title="DDOS 攻击类型"></a>DDOS 攻击类型</h3><h4 id="依据消耗目标资源的不同，可分为"><a href="#依据消耗目标资源的不同，可分为" class="headerlink" title="依据消耗目标资源的不同，可分为"></a>依据消耗目标资源的不同，可分为</h4><p>（1）攻击网络带宽资源<br>（2）攻击系统资源<br>（3）攻击应用资源</p>
+<h4 id="依据攻击数据包发送的频率和速度来划分"><a href="#依据攻击数据包发送的频率和速度来划分" class="headerlink" title="依据攻击数据包发送的频率和速度来划分"></a>依据攻击数据包发送的频率和速度来划分</h4><p>（1）洪水攻击<br>（2）慢速攻击</p>
+<h3 id="前端DDOS-攻击过程"><a href="#前端DDOS-攻击过程" class="headerlink" title="前端DDOS 攻击过程"></a>前端DDOS 攻击过程</h3><ol>
+<li>目标网页上放置，或者xss注入恶意脚本代码</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function imgflood() &#123;   </span><br><span class="line">  var TARGET = &apos;example.com&apos;  </span><br><span class="line">  var URI = &apos;/index.php?&apos;  </span><br><span class="line">  var pic = new Image()  </span><br><span class="line">  var rand = Math.floor(Math.random() * 1000)  </span><br><span class="line">  pic.src = &apos;http://&apos;+TARGET+URI+rand+&apos;=val&apos;  </span><br><span class="line">&#125;  </span><br><span class="line">setInterval(imgflood, 10)</span><br></pre></td></tr></table></figure>
+
+<p>如果攻击者在一个网站中嵌入了恶意JavaScript脚本，那么该网站的每一个访客都将成为DDoS攻击中的一员。网站流量越高就意味着DDoS越严重。</p>
+<h3 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h3><ul>
+<li><p>最直接的方法增加带宽。但是攻击者用各地的电脑进行攻击，他的带宽不会耗费很多钱，但对于服务器来说，带宽非常昂贵。</p>
+</li>
+<li><p>云服务提供商有自己的一套完整DDoS解决方案，并且能提供丰富的带宽资源。——如果是阿里云推荐使用高防。</p>
+</li>
+<li><p>攻击流量的稀释</p>
+<ol>
+<li>内容分发网络 CDN<br> CDN技术的初衷是提高互联网用户对网站静态资源的访问速度，由于分布式多节点的特点，它也能够对DDoS攻击的流量产生稀释的效果。<br> 利用CDN技术只能稀释通过域名发起的DDoS攻击的流量，如果攻击者直接通过IP地址进行攻击，就不会经过智能DNS解析，也就无法稀释流量了。</li>
+<li>Anycast Anycast技术是一种网络寻址和路由方法。</li>
+</ol>
+</li>
+<li><p>攻击流量的清洗</p>
+<ol>
+<li>IP信誉检查</li>
+<li>攻击特征匹配</li>
+<li>速度检查与限制</li>
+<li>TCP代理和验证</li>
+<li>协议完整性验证</li>
+<li>客户端真实性验证</li>
+</ol>
+</li>
+<li><p>总而言之，DDos防御的主要方法<br>（1）尽可能对系统加载最新补丁，并采取有效的合规性配置，降低漏洞利用风险；<br>（2）采取合适的安全域划分，配置防火墙、入侵检测和防范系统，减缓攻击。<br>（3）采用分布式组网、负载均衡、提升系统容量等可靠性措施，增强总体服务能力。<br>（4）隐藏服务器的真实IP地址</p>
+</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Yves Zhang</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Yves-Zhang.github.io/2020/01/04/web安全性问题/">http://Yves-Zhang.github.io/2020/01/04/web安全性问题/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/web安全/"># web安全</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/09/07/Spaassy-cli使用教程/">Spaassy-cli使用教程</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Yves Zhang | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
