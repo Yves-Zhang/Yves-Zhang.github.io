@@ -7,7 +7,7 @@
 
 
 
-<title>Hexo Start | YvesZhang&#39;s blog</title>
+<title>第一章 计算机组成与体系结构 | YvesZhang&#39;s blog</title>
 
 
 
@@ -169,7 +169,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hexo Start</h1>
+            <h1 class="post-title">第一章 计算机组成与体系结构</h1>
             
                 <div class="post-meta">
                     
@@ -178,14 +178,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">九月 3, 2019&nbsp;&nbsp;12:00:28</a>
+                        Date: <a href="#">二月 8, 2020&nbsp;&nbsp;15:33:00</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/笔记/">笔记</a>
+                                <a href="/categories/软件架构设计师考试/">软件架构设计师考试</a>
                             
                         </span>
                     
@@ -194,19 +194,74 @@
         </header>
 
         <div class="post-content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <h2 id="第一课-Flynn分类法"><a href="#第一课-Flynn分类法" class="headerlink" title="第一课 Flynn分类法"></a>第一课 Flynn分类法</h2><h3 id="Flynn分类法"><a href="#Flynn分类法" class="headerlink" title="Flynn分类法"></a>Flynn分类法</h3><p>是一种计算机体系接否分类方法，一种是指令流，一种是数据流。</p>
+<table>
+<thead>
+<tr>
+<th>体系结构类型</th>
+<th>结构</th>
+<th>关键特性</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单指令流单数据流 SISD</td>
+<td>控制部分：1 <br>处理器：1 <br>主存模块：1</td>
+<td></td>
+<td>单处理器系统</td>
+</tr>
+<tr>
+<td>单指令流多数据流 SIMD</td>
+<td>控制部分：1 <br>处理器：多个 <br>主存模块：多个</td>
+<td>各处理器以异步的形式执行同一条指令</td>
+<td>并行处理机 <br>阵列处理机 <br>超级向量处理机 <br></td>
+</tr>
+<tr>
+<td>多指令流单数据流 MISD</td>
+<td>控制部分：多个 <br>处理器：1 <br>主存模块：多个</td>
+<td>被证明不可能，至少是不实际的</td>
+<td>目前没有，有文献 称流水线计算机为此类</td>
+</tr>
+<tr>
+<td>多指令流多数据流 MIMD</td>
+<td>控制部分：多个 <br>处理器：多个 <br>主存模块：多个</td>
+<td>能够实现作业、任务、指令等各级全面并行</td>
+<td>单处理器系统</td>
+</tr>
+</tbody></table>
+<h2 id="第二课-CISC与RISC"><a href="#第二课-CISC与RISC" class="headerlink" title="第二课 CISC与RISC"></a>第二课 CISC与RISC</h2><table>
+<thead>
+<tr>
+<th><div style="min-width:150px"> 指令系统类型 </div></th>
+<th>指令</th>
+<th><div style="min-width:100px"> 寻址方式 </div></th>
+<th>实现方式</th>
+<th>其它</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CISC(复杂)</td>
+<td>数量多，使用频率差别大，可变长格式</td>
+<td>支持多种</td>
+<td>微程序控制技术（微码）</td>
+<td>研制周期长</td>
+</tr>
+<tr>
+<td>RISC(精简)</td>
+<td>数量少，使用频率接近，定长格式，大部分为单周期指令，操作寄存器，只有Load/Store操作内存</td>
+<td>支持方式少</td>
+<td>增加了通用寄存器；硬布线逻辑控制为主；适合采用流水线</td>
+<td>优化编译，有效支持高级语言</td>
+</tr>
+</tbody></table>
+<h2 id="第三课-参层次化储存结构"><a href="#第三课-参层次化储存结构" class="headerlink" title="第三课 参层次化储存结构"></a>第三课 参层次化储存结构</h2><p>块————————慢<br>CPU&gt;Cache&gt;内存（主存）&gt;内存（辅存）</p>
+<p>CPU 寄存器<br>Cache 按内容存取<br>内存（主存）<br>外存（辅存）硬盘、光盘、U盘等</p>
+<h2 id="第四课-Cache-概念"><a href="#第四课-Cache-概念" class="headerlink" title="第四课 Cache 概念"></a>第四课 Cache 概念</h2><h3 id="Cache-的功能："><a href="#Cache-的功能：" class="headerlink" title="Cache 的功能："></a>Cache 的功能：</h3><p>1.提高CPU数据输入输出的频率，突破冯·诺依曼瓶颈，即CPU与存储系统间数据传送宽带限制。</p>
+<p>2.在计算机的存储系统体系中，Cache是访问速度最快的层次。</p>
+<p>3.使用Cache改善系统性能的依据是系统的局部性原理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如果以h代表对Cache的访问命中率，t1表示Cache的周期时间，t2表示主存储器周期时间，以读操作为例，使用“Cache+主存储器”的系统的平均周期为t3，则：</span><br><span class="line">	t3 = h × t1 ＋( 1 － h) × t2</span><br><span class="line">其中，（1-h）又称为失效率（未命中率）。</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>例如：<br>    Cache的命中率为 95%<br>    Cache的周期时间为 1ns<br>    主存储器周期时间为 1s<br>    那么，系统读操作的平均周期时间为：<br>    95%×1ns+(1－95%)×1000ns = 50.95ns</p>
 
         </div>
 
@@ -221,7 +276,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://Yves-Zhang.github.io/2019/09/03/Hexo Start/">http://Yves-Zhang.github.io/2019/09/03/Hexo Start/</a></span>
+                        <span><a href="http://Yves-Zhang.github.io/2020/02/08/软件架构设计师(一)/">http://Yves-Zhang.github.io/2020/02/08/软件架构设计师(一)/</a></span>
                     </p>
                 
                 
@@ -245,7 +300,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/hexo/"># hexo</a>
+                        <a href="/tags/软考/"># 软考</a>
                     
                         
                 </span>
@@ -258,10 +313,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2019/09/06/Spaassy框架说明/">Spaassy微前端框架</a>
             
-            
-            <a class="next" rel="next" href="/2019/09/03/Mac笔记本npm的权限问题/">Mac笔记本npm的权限问题</a>
+            <a class="next" rel="next" href="/2020/01/04/web安全性问题/">WEB安全性问题</a>
             
         </section>
 
